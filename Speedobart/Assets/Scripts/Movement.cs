@@ -1,18 +1,40 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 public class Movement : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] Rigidbody2D rdbody;
+    public float Speed;
+    public bool isMoving;
+    Vector2 movement;
+
+    private void Start()
     {
-        
+        rdbody = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        movement.x = Input.GetAxisRaw("Horizontal");
+        movement.y = Input.GetAxisRaw("Vertical");
+
+
+        if (rdbody.velocity.x != 0 || rdbody.velocity.y != 0)
+            isMoving = true;
+        else
+            isMoving = false;
+
     }
+
+    private void FixedUpdate()
+    {
+        rdbody.MovePosition(rdbody.position + movement * Speed * Time.fixedDeltaTime);
+    }
+
+
+
+
+
 }
