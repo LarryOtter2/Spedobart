@@ -21,7 +21,7 @@ public class Movement : MonoBehaviour
         movement.y = Input.GetAxisRaw("Vertical");
 
 
-        if (rdbody.velocity.x != 0 || rdbody.velocity.y != 0)
+        if (movement.x != 0 || movement.y != 0)
             isMoving = true;
         else
             isMoving = false;
