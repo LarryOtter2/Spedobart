@@ -1,56 +1,51 @@
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class ElementWheelController : MonoBehaviour
 {
-    public int ID;
-    private Animator anim;
-    public string itemName;
-    public TextMeshProUGUI itemText;
-    public Image selectedItem;
-    private bool selected = false;
-    public Sprite icon;
+    public Animator anim;
+    private bool weaponEheelSelected = false;
+    public Image selectedElement;
+    public Sprite noImage;
+    public static int elementID;
 
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        anim = GetComponent<Animator>();
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        if (selected)
+        if(Input.GetKeyDown(KeyCode.Q))
         {
-            selectedItem.sprite = icon;
+            weaponEheelSelected = !weaponEheelSelected;
+        }
 
-            itemText.text itemName;
+        if(weaponEheelSelected)
+        {
+            anim.SetBool("OpenWeaponWheel", true);
+        }
+        else
+        {
+            anim.SetBool("OpenWeaponWheel", false);
+        }
+
+        switch(elementID)
+        {
+            case 1:
+                ElementalState.ElementInstance.SwitchState(ElementalState.Element.Fire);
+                break;
+            case 2:
+                //selectedElement.sprite = fireIcon;
+                ElementalState.ElementInstance.SwitchState(ElementalState.Element.Earth);
+                break;
+            case 3:
+                //selectedElement.sprite = fireIcon;
+                ElementalState.ElementInstance.SwitchState(ElementalState.Element.Water);
+                break;
+            case 4:
+                //selectedElement.sprite = fireIcon;
+                ElementalState.ElementInstance.SwitchState(ElementalState.Element.Lightning);
+                break;
+
         }
 
     }
-
-    public void Selected()
-    {
-            selected = true;
-    }
-
-    public void DeSelected()
-    {
-        selected = true;
-    }
-
-    public void HoverEnter()
-    {
-        anim.SetBool("Hover", true);
-        itemText.text = itemName;
-    }
-
-    public void HoverExit()
-    {
-        anim.SetBool("Hover", false);
-        itemText.text = "";
-    }
-
 }

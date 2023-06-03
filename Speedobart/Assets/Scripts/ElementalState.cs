@@ -4,6 +4,21 @@ using UnityEngine;
 
 public class ElementalState : MonoBehaviour
 {
+    public static ElementalState ElementInstance;
+
+    private void Awake()
+    {
+        if (ElementInstance == null)
+        {
+            ElementInstance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     #region
     public void Start()
     {
